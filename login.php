@@ -2,7 +2,7 @@
 
 require_once __DIR__.'\includes\PageClass.php';
 
-$body='<h4 class="text-center">Formulario de Personas</h4><br>
+$body='<h4 class="text-center">Login</h4><br>
     
       <div class="d-flex justify-content-center">
 
