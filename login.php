@@ -6,7 +6,7 @@ $body='<h4 class="text-center">Formulario de Personas</h4><br>
     
       <div class="d-flex justify-content-center">
 
-        <form id="formPersonas" method="post" action="procesoFormulario.php" style="min-width:350px;max-width:600px;width:100%">
+        <form id="formPersonas" method="post" action="procesoLogin.php" style="min-width:350px;max-width:600px;width:100%">
 
             <div class="form-row">
                 <div class="col-md-6 mb-3">
