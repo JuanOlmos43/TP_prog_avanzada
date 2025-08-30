@@ -25,7 +25,7 @@ class FormPersonas {
         } else if (usuario.value.trim().length > 12) { //MAXIMO 12 CARACTERES USUARIO
             usuario.classList.add('is-invalid');
             usuario.classList.remove('is-valid');
-            usuarioFeedback.textContent = 'La contraseña debe tener un maximo de 15 caracteres.';
+            usuarioFeedback.textContent = 'El usuarrio debe tener un maximo de 12 caracteres.';
             formValido = false;//-
         }else {
             usuario.classList.add('is-valid'); //TODO VALIDO SI ENTRA EN ESTE else
@@ -46,7 +46,7 @@ class FormPersonas {
         } else if (password.value.trim().length > 25) { //MAXIMO 25 CARACTERES PASSWORD
             password.classList.add('is-invalid');
             password.classList.remove('is-valid');
-            passwordFeedback.textContent = 'La contraseña debe tener un maximo de 15 caracteres.';
+            passwordFeedback.textContent = 'La contraseña debe tener un maximo de 25 caracteres.';
             formValido = false;//-
         }else { 
             password.classList.add('is-valid');  //TODO VALIDO SI ENTRA EN ESTE else
