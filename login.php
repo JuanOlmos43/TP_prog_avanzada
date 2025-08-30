@@ -31,6 +31,15 @@ $body='<h4 class="text-center">Formulario de Personas</h4><br>
         </form>
     </div>';
 
+if (isset($_GET['error']) && $_GET['error'] == 1) {
+    $body .= '
+        <div class="alert alert-danger mt-3 text-center" role="alert">
+            Usuario o contraseña incorrectos
+        </div>';
+}
+
+$body .= '</form></div>';
+
 $oPage=new PageClass();
 
 $oPage->setBody($body);

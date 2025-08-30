@@ -1,12 +1,16 @@
 <?php
 require_once __DIR__.'\includes\PageClass.php';
-
-if (isset($_POST['user'])) {
+$credencial_usuario = 'fcytuader';
+$credencial_contraseña = 'programacionavanzada';
+if (isset($_POST['user']) && isset($_POST['password'])) {
 
 $nombre_usuario = $_POST['user'];
     
 }
-$body='<h4 class="text-center">Bienvenido</h4>
+if(($credencial_contraseña !== $_POST['password']) && ($credencial_usuario !== $_POST['user'])){
+  header("Location: login.php?error=1");
+}
+  $body='<h4 class="text-center">Bienvenido</h4>
         <h6 class="text-center">Usted '. $nombre_usuario . ' a iniciado correctamente</h6>
 		';
 
