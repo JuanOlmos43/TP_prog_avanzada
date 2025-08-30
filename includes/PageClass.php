@@ -22,15 +22,16 @@ class PageClass
 
     private function setHeader(): void
     {
-        $this->header = '<!DOCTYPE html>
+        $this->header = '
+        <!DOCTYPE html>
         <html lang="es">
         <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>' . htmlspecialchars($this->title) . '</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/procesoLogin.js"></script>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>' . htmlspecialchars($this->title) . '</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="js/procesoLogin.js"></script>
         </head>
         <body class="bg-light d-flex flex-column min-vh-100">';
     }
@@ -39,16 +40,17 @@ class PageClass
     {
         // Bloque a la derecha: varia segun si el usuario esta o no autenticado
         $right = $isAuthenticated
-        ? $this->navRightAuth($username ?? 'Usuario')
-        : $this->navRightGuest();
+            ? $this->navRightAuth($username ?? 'Usuario')
+            : $this->navRightGuest();
 
         $this->navbar = '
-            <nav class="navbar navbar-light bg-white border-bottom shadow-sm">
+            <nav class="navbar navbar-light bg-white border-bottom shadow-sm ">
                 <div class="container d-flex align-items-center">
                     <a class="navbar-brand d-flex align-items-center gap-2 m-0" href="index.php">
                         <img src="imgs/logo.svg" alt="Sys Admin" width="28" height="28" onerror="this.style.display=\'none\'">
                         <span class="fw-semibold">El sitio de administración de inventarios</span>
                     </a>
+                    
                     <div class="ms-auto">
                         ' . $right . '
                     </div>
