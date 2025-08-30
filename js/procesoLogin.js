@@ -1,5 +1,5 @@
 class FormPersonas {
-   
+
     constructor() {
         this.form = document.getElementById('formPersonas');
     }
