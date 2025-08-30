@@ -5,93 +5,66 @@ class FormPersonas {
     }
 
     validoInputsIndividual() {
-        let formValido = true;
-        const nombreyape = document.getElementById('nombreyape');
-            if (nombreyape.value.trim() === '') {
-                nombreyape.classList.add('is-invalid');
-                nombreyape.classList.remove('is-valid');
-                formValido = false;
-                //this.cambiarEstiloInput(nombreyape, false);
-            } else {
-                nombreyape.classList.add('is-valid');
-                nombreyape.classList.remove('is-invalid');
-                //this.cambiarEstiloInput(nombreyape, true);
-            }
+        let formValido = true; //booleano EN VERDADERO +
+        const usuario = document.getElementById('user');  //constante info de usuario
+        const password = document.getElementById('password'); //constante info de usuario
+        const usuarioFeedback = usuario.nextElementSibling.nextElementSibling; // Obtiene el div invalid-feedback
+        const passwordFeedback = password.nextElementSibling.nextElementSibling; // Obtiene el div invalid-feedback
 
-        const correo = document.getElementById('correo');
-        const correoValido = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correo.value.trim());
-        
-        if (correo.value.trim() === '' || !correoValido) {
-            correo.classList.add('is-invalid');
-            correo.classList.remove('is-valid');
-            formValido = false;
-        } else {
-            correo.classList.add('is-valid');
-            correo.classList.remove('is-invalid');
+        //VALIDACION PARA USUARIO 
+        if (usuario.value.trim() === '') { //VACIO
+            usuario.classList.add('is-invalid');
+            usuario.classList.remove('is-valid');
+            usuarioFeedback.textContent = 'El campo Usuario no puede estar vacío.';
+            formValido = false;//-
+        } else if (usuario.value.trim().length < 3) { //MINIMO 3 CARACTERES
+            usuario.classList.add('is-invalid');
+            usuario.classList.remove('is-valid');
+            usuarioFeedback.textContent = 'El Usuario debe tener al menos 3 caracteres.';
+            formValido = false;//-
+        } else if (usuario.value.trim().length > 12) { //MAXIMO 12 CARACTERES USUARIO
+            usuario.classList.add('is-invalid');
+            usuario.classList.remove('is-valid');
+            usuarioFeedback.textContent = 'La contraseña debe tener un maximo de 15 caracteres.';
+            formValido = false;//-
+        }else {
+            usuario.classList.add('is-valid'); //TODO VALIDO SI ENTRA EN ESTE else
+            usuario.classList.remove('is-invalid');
+            usuario.nextElementSibling.textContent = 'ingreso correctamente'; 
         }
-
-        const documento = document.getElementById('documento');
-        if (documento.value.trim() === '') {
-            documento.classList.add('is-invalid');
-            documento.classList.remove('is-valid');
-            formValido = false;
-        } else {
-            documento.classList.add('is-valid');
-            documento.classList.remove('is-invalid');
+        //VALIDACION DE LA CONTRASENIA
+        if (password.value.trim() === '') {   //VACIO
+            password.classList.add('is-invalid'); 
+            password.classList.remove('is-valid');
+            passwordFeedback.textContent = 'La contraseña no puede estar vacía.';
+            formValido = false;//-
+        } else if (password.value.trim().length < 5) { //MINIMO 5 CARACTERES
+            password.classList.add('is-invalid');
+            password.classList.remove('is-valid');
+            passwordFeedback.textContent = 'La contraseña debe tener al menos 5 caracteres.';
+            formValido = false;//-
+        } else if (password.value.trim().length > 25) { //MAXIMO 25 CARACTERES PASSWORD
+            password.classList.add('is-invalid');
+            password.classList.remove('is-valid');
+            passwordFeedback.textContent = 'La contraseña debe tener un maximo de 15 caracteres.';
+            formValido = false;//-
+        }else { 
+            password.classList.add('is-valid');  //TODO VALIDO SI ENTRA EN ESTE else
+            password.classList.remove('is-invalid');
+            password.nextElementSibling.textContent = 'ingreso correctamente'; 
         }
-        return formValido;
+        return formValido; //devuelve BOOl despues de verificar los casos
     }
 
-    validoInputsArray(){
-        this.inputs = Array.from(this.form.elements).filter(element => element.tagName === 'INPUT');
-        let formValido = true;
-        this.inputs.forEach(input => {
-            let esValido = true;
-            if (input.id === 'correo') {
-                const correoValido = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value.trim());
-                if (input.value.trim() === '' || !correoValido) {
-                    esValido = false;
-                }
-            } else if (input.id === 'nombreyape') {
-                if (input.value.trim() === '' || input.value.trim().length < 3) {
-                    esValido = false;
-                }
-            } else if (input.id === 'documento') {
-                if (input.value.trim() === '' || input.value.trim().length < 6) {
-                    esValido = false;
-                }
-            } else {
-                if (input.value.trim() === '') {
-                    esValido = false;
-                }
-            }
-            this.cambiarEstiloInput(input, esValido);
-            if (!esValido) {
-                formValido = false;
-            }
-        });
-        return formValido;
-    }
-
-
-    cambiarEstiloInput(elemento, esValido) {
-        if (esValido) {
-            elemento.classList.add('is-valid');
-            elemento.classList.remove('is-invalid');
-        } else {
-            elemento.classList.add('is-invalid');
-            elemento.classList.remove('is-valid');
-        }
-    }
 
 
     init() {
 
-        this.form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            if ( this.validoInputsIndividual()==true ) {
+        this.form.addEventListener('submit', (event) => { //detecta que se toca el boton SUBMIT
+            event.preventDefault();  //setea un evento default para cuando se toca el boton submit
+            if ( this.validoInputsIndividual()==true ) {  //espera las validaciones
                 
-                this.form.submit();
+                this.form.submit();   //si es true la validacion, entra al if y manda el formulario.
             }
         });
     }
@@ -99,8 +72,8 @@ class FormPersonas {
 }
 
 // Inicialización automática si el formulario existe
-window.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('formPersonas')) {
-        new FormPersonas().init();
+window.addEventListener('DOMContentLoaded', () => { //espera html
+    if (document.getElementById('formPersonas')) {   //encuentra el formPersonas
+        new FormPersonas().init();  //llama al init para validar formulario
     }
 });
