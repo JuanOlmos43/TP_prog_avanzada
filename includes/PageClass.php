@@ -6,14 +6,14 @@ class PageClass
     private string $header = '';
     private string $navbar = '';
     private string $body   = '';
-    private string $js     = '';
+ 
     private string $footer = '';
 
     public function __construct()
     {
         $this->setHeader();
         $this->setNavBar(false); // false = invitado; true = autenticado
-        $this->setJs();
+ 
         $this->setFooter();
     }
 
@@ -31,6 +31,7 @@ class PageClass
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>' . htmlspecialchars($this->title) . '</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         </head>
         <body class="bg-light d-flex flex-column min-vh-100">';
     }
@@ -75,11 +76,6 @@ class PageClass
         $this->body = $html;
     }
 
-    private function setJs(): void
-    {
-        $this->js = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>';
-    }
-
     private function setFooter(): void
     {
         $this->footer = '
@@ -96,7 +92,6 @@ class PageClass
              . $this->navbar
              . '<main class="container py-4">' . $this->body . '</main>'
              . $this->footer
-             . $this->js
              . '</body></html>';
     }
 }

@@ -2,7 +2,6 @@
 
 require_once __DIR__.'\includes\PageClass.php';
 
-
 $body='<h4 class="text-center">Formulario de Personas</h4><br>
     
       <div class="d-flex justify-content-center">
@@ -12,7 +11,7 @@ $body='<h4 class="text-center">Formulario de Personas</h4><br>
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label>Usuario</label>
-                    <input type="text" class="form-control" id="user" name="user">
+                    <input type="text" class="form-control" id="user" name="user" required>
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback">El campo Nombre no puede estar vacío.</div>
                 </div>
@@ -21,7 +20,7 @@ $body='<h4 class="text-center">Formulario de Personas</h4><br>
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label>Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" value="">
+                    <input type="password" class="form-control" id="password" name="password" value="" required>
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback">El campo contraseña no puede estar vacío.</div>
                 </div>
@@ -34,7 +33,7 @@ $body='<h4 class="text-center">Formulario de Personas</h4><br>
 
 $oPage=new PageClass();
 
-  $oPage->setBody($body);
+$oPage->setBody($body);
 
 echo $oPage->getHtml();
 
