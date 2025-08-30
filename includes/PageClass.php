@@ -2,92 +2,101 @@
 
 class PageClass
 {
-    private $header;
-    private $navbar;
-    private $body;
-    private $js;
-    private $footer;
+    private string $title  = 'Sys Admin';
+    private string $header = '';
+    private string $navbar = '';
+    private string $body   = '';
+    private string $js     = '';
+    private string $footer = '';
 
-
-    function __construct()
+    public function __construct()
     {
-       $this->setHeader();
-       $this->setNavBar();
-       $this->setJs();
-       $this->setFooter();
-
+        $this->setHeader();
+        $this->setNavBar(false); // false = invitado; true = autenticado
+        $this->setJs();
+        $this->setFooter();
     }
 
-
-    private function setHeader()
+    public function setTitle(string $title): void
     {
-        $this->header='<!DOCTYPE html>
-                <html lang="es">
-                 <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <title>Programación Avanzada</title>
-                    <link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-                </head>
-                <body class="bg-light">
-                    <div class="container">';
+        $this->title = $title;
     }
 
-    // Cambiar función que se muestre en esquina superior derecha para autenticarse
-    private function setNavBar()
+    private function setHeader(): void
     {
-        $this->navbar='<nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="index.php">
-                            <img src="imgs/desarrollo-web.svg" width="30" height="30" class="d-inline-block align-top">
-                            Programación Avanzada
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="formPersonas.php">Formulario de Personas</a>
-                                </li>
-                            </ul>
-                        </div>
+        $this->header = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>' . htmlspecialchars($this->title) . '</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        </head>
+        <body class="bg-light d-flex flex-column min-vh-100">';
+    }
+
+    public function setNavBar(bool $isAuthenticated, ?string $username = null): void
+    {
+        // Bloque a la derecha: varia segun si el usuario esta o no autenticado
+        $right = $isAuthenticated
+        ? $this->navRightAuth($username ?? 'Usuario')
+        : $this->navRightGuest();
+
+        $this->navbar = '
+            <nav class="navbar navbar-light bg-white border-bottom shadow-sm">
+                <div class="container d-flex align-items-center">
+                    <a class="navbar-brand d-flex align-items-center gap-2 m-0" href="index.php">
+                        <img src="imgs/logo.svg" alt="Sys Admin" width="28" height="28" onerror="this.style.display=\'none\'">
+                        <span class="fw-semibold">El sitio de administración de inventarios</span>
+                    </a>
+                    <div class="ms-auto">
+                        ' . $right . '
                     </div>
-                </nav>';
+                </div>
+            </nav>';
     }
 
-
-    public function setBody($body)
+    // Navbar para usuarios no autenticados
+    private function navRightGuest(): string
     {
-        $this->body=$body;
-        $this->body.='</div>';
+        return '<a class="btn btn-primary" href="login.php">Autenticarse</a>';
     }
 
-
-    private function setJs()
+    // Navbar para usuarios autenticados --> UNA VEZ HECHA LA PANTALLA DE USUARIO AUTENTICADO PROBAR ESTA FUNCION
+    private function navRightAuth(string $username): string
     {
-        $this->js='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-                   <script src="js/formPersonas.js"></script>';
+        $name = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+        return '<span class="navbar-text">Hola, <strong>' . $name . '</strong></span>';
     }
 
-    private function setFooter()
+    /** Solo asigna el cuerpo (HTML). El <main> se agrega en getHtml(). */
+    public function setBody(string $html): void
     {
-        $this->footer='<a href= "imags/pie.jpg"></body></html>';
+        $this->body = $html;
     }
 
-    public function getHtml()
+    private function setJs(): void
     {
-        $Pagina=$this->header;
-        $Pagina.=$this->navbar;
-        $Pagina.=$this->body;
-        $Pagina.=$this->js;
-        $Pagina.=$this->footer;
-        return $Pagina;
+        $this->js = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>';
     }
 
+    private function setFooter(): void
+    {
+        $this->footer = '
+        <footer class="mt-auto py-3 bg-white border-top">
+        <div class="container text-center">
+            <img src="imgs/pie.jpg" alt="Pie" class="img-fluid" style="max-height:80px;">
+        </div>
+        </footer>';
+        }
 
+    public function getHtml(): string
+    {
+        return $this->header
+             . $this->navbar
+             . '<main class="container py-4">' . $this->body . '</main>'
+             . $this->footer
+             . $this->js
+             . '</body></html>';
+    }
 }
