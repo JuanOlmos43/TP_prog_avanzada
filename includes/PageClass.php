@@ -5,15 +5,13 @@ class PageClass
     private string $title  = 'Sys Admin';
     private string $header = '';
     private string $navbar = '';
-    private string $body   = '';
- 
+    private string $body   = ''; 
     private string $footer = '';
 
     public function __construct()
     {
         $this->setHeader();
         $this->setNavBar(false); // false = invitado; true = autenticado
- 
         $this->setFooter();
     }
 
