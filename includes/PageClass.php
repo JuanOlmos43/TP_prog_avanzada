@@ -36,15 +36,17 @@ class PageClass
         <body class="bg-light d-flex flex-column min-vh-100">';
     }
 
-    public function setNavBar(bool $isAuthenticated, ?string $username = null): void
+    public function setNavBar(bool $isAuthenticated, ?string $username = null, ): void
     {
         // Bloque a la derecha: varia segun si el usuario esta o no autenticado
-        $right = $isAuthenticated
-            ? $this->navRightAuth($username ?? 'Usuario')
-            : $this->navRightGuest();
+        $right = $isAuthenticated ? $this->navRightAuth($username ?? 'Usuario'): $this->navRightGuest();
+
+        if($username === '') {
+            $right = ""; 
+        }
 
         $this->navbar = '
-            <nav class="navbar navbar-light bg-white border-bottom shadow-sm ">
+            <nav class="navbar navbar-light border-bottom shadow-sm " style="background-color: #009c94;">
                 <div class="container d-flex align-items-center">
                     <a class="navbar-brand d-flex align-items-center gap-2 m-0" href="index.php">
                         <img src="imgs/logo.svg" alt="Sys Admin" width="28" height="28" onerror="this.style.display=\'none\'">

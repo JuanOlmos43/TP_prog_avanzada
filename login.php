@@ -35,11 +35,9 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         </div>';
 }
 
-$body .= '</form></div>';
-
 $oPage=new PageClass();
-
 $oPage->setBody($body);
+$oPage->setNavBar(true, ''); // invitado
 
 echo $oPage->getHtml();
 ?>

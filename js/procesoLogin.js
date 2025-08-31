@@ -56,10 +56,7 @@ class FormPersonas {
         return formValido; //devuelve BOOl despues de verificar los casos
     }
 
-
-
     init() {
-
         this.form.addEventListener('submit', (event) => { //detecta que se toca el boton SUBMIT
             event.preventDefault();  //setea un evento default para cuando se toca el boton submit
             if ( this.validoInputsIndividual()==true ) {  //espera las validaciones
