@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'\includes\PageClass.php';
+require_once __DIR__.'/includes/PageClass.php';
 
 $credencial_usuario = 'fcytuader';
 $credencial_contraseña = 'programacionavanzada';
